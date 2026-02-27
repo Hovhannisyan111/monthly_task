@@ -3,7 +3,7 @@
 pipeline {
     agent any
     environment {
-        MONTHLY_DAY = '26'
+        MONTHLY_DAY = '27'
     }
     stages {
         stage('Build') {
@@ -19,12 +19,12 @@ pipeline {
         stage('Package') {
             steps {
                 echo 'Packaging artefacts...'
+                // error 'Simulated failure'
             }
         }
         stage('Check Monthly Reset') {
             steps {
                 script {
-                    // Must be here in a real step — cannot be inside when { expression }
                     monthlyPipeline.resetMonthlyFlagIfNewMonth(this)
                 }
             }
