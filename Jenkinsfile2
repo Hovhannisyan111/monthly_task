@@ -14,6 +14,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running Tests...'
+                error 'Simulated failure
             }
         }
         stage('Package') {
