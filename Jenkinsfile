@@ -3,7 +3,7 @@
 pipeline {
     agent any
     environment {
-        MONTHLY_DAY        = '26'
+        MONTHLY_DAY        = '27'
         RETRY_INTERVAL_MIN = '5'
     }
     stages {
