@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Running Build...'
-                // error 'Simulated Build failure'
+                error 'Simulated Build failure'
             }
         }
         stage('Test') {
