@@ -32,7 +32,7 @@ pipeline {
         stage('Monthly Task') {
             when {
                 expression {
-                    return monthlyPipeline.isMonthlyTaskDue(this)
+                    return monthlyPipeline2.isMonthlyTaskDue(this)
                 }
             }
             steps {
@@ -44,12 +44,12 @@ pipeline {
     post {
         success {
             script {
-                monthlyPipeline.clearAll(this)
+                monthlyPipeline2.clearAll(this)
             }
         }
         failure {
             script {
-                monthlyPipeline.handleFailure(this)
+                monthlyPipeline2.handleFailure(this)
             }
         }
         always {
