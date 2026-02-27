@@ -1,10 +1,10 @@
-@Library('your-shared-library-name') _
+@Library('monthly_task_library') _
 
 pipeline {
     agent any
     environment {
         MONTHLY_DAY        = '27'
-        //RETRY_INTERVAL_MIN = '5'
+        RETRY_INTERVAL_MIN = '2'
     }
     stages {
         stage('Build') {
