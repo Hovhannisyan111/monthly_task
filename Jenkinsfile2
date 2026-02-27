@@ -1,4 +1,4 @@
-@Library('your-shared-library-name') _
+@Library('monthly_task_library') _
 
 pipeline {
     agent any
