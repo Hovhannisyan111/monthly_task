@@ -1,0 +1,52 @@
+@Library('your-shared-library-name') _
+
+pipeline {
+    agent any
+    environment {
+        MONTHLY_DAY = '26'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Running Build...'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running Tests...'
+            }
+        }
+        stage('Package') {
+            steps {
+                echo 'Packaging artefacts...'
+            }
+        }
+        stage('Monthly Task') {
+            when {
+                expression {
+                    monthlyPipeline.resetMonthlyFlagIfNewMonth(this)
+                    return monthlyPipeline.isMonthlyTaskDue(this)
+                }
+            }
+            steps {
+                echo 'Running monthly task (sending artifacts to S3)...'
+                // sh 'aws s3 sync ./dist s3://your-bucket/artifacts'
+            }
+        }
+    }
+    post {
+        success {
+            script {
+                monthlyPipeline2.clearAll(this)
+            }
+        }
+        failure {
+            script {
+                monthlyPipeline2.handleFailure(this)
+            }
+        }
+        always {
+            echo "Build finished with: ${currentBuild.currentResult}"
+        }
+    }
+}
