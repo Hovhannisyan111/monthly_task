@@ -3,8 +3,8 @@
 pipeline {
     agent any
     environment {
-        MONTHLY_DAY        = '28'
-        RETRY_INTERVAL_MIN = '2'
+        MONTHLY_DAY        = '26'
+        RETRY_INTERVAL_MIN = '5'
     }
     stages {
         stage('Build') {
@@ -28,25 +28,24 @@ pipeline {
         stage('Monthly Task') {
             when {
                 expression {
-                    return monthlyPipeline.init(this).isMonthlyTaskDue()
+                    return monthlyPipeline.isMonthlyTaskDue(this)
                 }
             }
             steps {
-                script {
-                    echo 'Running monthly task (sending artifacts to S3)...'
-                }
+                echo 'Running monthly task (sending artifacts to S3)...'
+                // sh 'aws s3 sync ./dist s3://your-bucket/artifacts'
             }
         }
     }
     post {
         success {
             script {
-                monthlyPipeline.init(this).clearAll()
+                monthlyPipeline.clearAll(this)
             }
         }
         failure {
             script {
-                monthlyPipeline.init(this).handleFailure()
+                monthlyPipeline.handleFailure(this)
             }
         }
         always {
