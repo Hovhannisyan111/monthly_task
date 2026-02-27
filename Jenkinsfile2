@@ -3,7 +3,7 @@
 pipeline {
     agent any
     environment {
-        MONTHLY_DAY = '27'
+        MONTHLY_DAY = '28'
     }
     stages {
         // Runs FIRST before anything can fail
@@ -23,7 +23,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running Tests...'
-                error 'Simulated failure'
+                //error 'Simulated failure'
             }
         }
         stage('Package') {
