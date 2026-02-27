@@ -19,7 +19,7 @@ pipeline {
         stage('Package') {
             steps {
                 echo 'Packaging artefacts...'
-                // error 'Simulated failure'
+                error 'Simulated failure'
             }
         }
         stage('Check Monthly Reset') {
