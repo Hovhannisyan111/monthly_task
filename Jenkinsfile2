@@ -3,7 +3,7 @@
 pipeline {
     agent any
     environment {
-        MONTHLY_DAY = '28'
+        MONTHLY_DAY = '27'
     }
     stages {
         // Runs FIRST before anything can fail
