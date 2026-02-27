@@ -24,8 +24,7 @@ pipeline {
         stage('Check Monthly Reset') {
             steps {
                 script {
-                    // Reset the executed flag if we are in a new month
-                    // Must be a real step — cannot live inside when { expression }
+                    // Must be here in a real step — cannot be inside when { expression }
                     monthlyPipeline.resetMonthlyFlagIfNewMonth(this)
                 }
             }
