@@ -6,6 +6,15 @@ pipeline {
         MONTHLY_DAY = '27'
     }
     stages {
+        // Runs FIRST before anything can fail
+        // so the monthly reset check always executes
+        stage('Check Monthly Reset') {
+            steps {
+                script {
+                    monthlyPipeline2.resetMonthlyFlagIfNewMonth(this)
+                }
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Running Build...'
@@ -14,19 +23,12 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running Tests...'
+                // error 'Simulated failure'
             }
         }
         stage('Package') {
             steps {
                 echo 'Packaging artefacts...'
-               //error 'Simulated failure'
-            }
-        }
-        stage('Check Monthly Reset') {
-            steps {
-                script {
-                    monthlyPipeline2.resetMonthlyFlagIfNewMonth(this)
-                }
             }
         }
         stage('Monthly Task') {
