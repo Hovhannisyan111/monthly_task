@@ -3,7 +3,7 @@
 pipeline {
     agent any
     environment {
-        MONTHLY_DAY = '27'
+        MONTHLY_DAY = '26'
     }
     stages {
         stage('Build') {
@@ -21,10 +21,18 @@ pipeline {
                 echo 'Packaging artefacts...'
             }
         }
+        stage('Check Monthly Reset') {
+            steps {
+                script {
+                    // Reset the executed flag if we are in a new month
+                    // Must be a real step — cannot live inside when { expression }
+                    monthlyPipeline.resetMonthlyFlagIfNewMonth(this)
+                }
+            }
+        }
         stage('Monthly Task') {
             when {
                 expression {
-                    monthlyPipeline.resetMonthlyFlagIfNewMonth(this)
                     return monthlyPipeline.isMonthlyTaskDue(this)
                 }
             }
@@ -37,12 +45,12 @@ pipeline {
     post {
         success {
             script {
-                monthlyPipeline2.clearAll(this)
+                monthlyPipeline.clearAll(this)
             }
         }
         failure {
             script {
-                monthlyPipeline2.handleFailure(this)
+                monthlyPipeline.handleFailure(this)
             }
         }
         always {
