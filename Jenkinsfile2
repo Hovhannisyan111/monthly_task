@@ -14,7 +14,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running Tests...'
-                error 'Simulated failure
+                error 'Simulated failure'
             }
         }
         stage('Package') {
@@ -26,7 +26,7 @@ pipeline {
         stage('Check Monthly Reset') {
             steps {
                 script {
-                    monthlyPipeline.resetMonthlyFlagIfNewMonth(this)
+                    monthlyPipeline2.resetMonthlyFlagIfNewMonth(this)
                 }
             }
         }
