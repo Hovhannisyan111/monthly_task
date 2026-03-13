@@ -3,7 +3,7 @@
 pipeline {
     agent any
     environment {
-        MONTHLY_DAY = '13'
+        MONTHLY_DAY = '12'
     }
     stages {
         stage('Build') {
@@ -15,7 +15,7 @@ pipeline {
         stage('Package') {
             steps { 
 		echo 'Packaging artefacts...'
-		error 'Simulated failure'
+		// error 'Simulated failure'
 	    }
         }
         stage('Monthly Task') {
