@@ -3,7 +3,7 @@
 pipeline {
     agent any
     environment {
-        MONTHLY_DAY = '12'
+        MONTHLY_DAY = '13'
     }
     stages {
         stage('Check Monthly Reset') {
@@ -21,7 +21,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running Tests...'
-                // error 'Simulated failure'
+                error 'Simulated failure'
             }
         }
         stage('Package') {
