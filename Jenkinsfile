@@ -13,8 +13,10 @@ pipeline {
             steps { echo 'Running Tests...' }
         }
         stage('Package') {
-            steps { echo 'Packaging artefacts...' }
+            steps { 
+		echo 'Packaging artefacts...'
 		error 'Simulated failure'
+	    }
         }
         stage('Monthly Task') {
             when {
