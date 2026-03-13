@@ -3,7 +3,7 @@
 pipeline {
     agent any
     environment {
-        MONTHLY_DAY = '14'
+        MONTHLY_DAY = '13'
     }
     stages {
         stage('Build') {
