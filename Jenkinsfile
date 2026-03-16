@@ -20,16 +20,16 @@ pipeline {
         }
         stage('Monthly Task') {
             when {
-                expression { return monthlyPipeline5.isMonthlyTaskDue(this) }
+                expression { return monthlyPipeline.isMonthlyTaskDue(this) }
             }
             steps {
                 script {
                     try {
                         echo 'Running monthly task...'
                         // sh 'aws s3 sync ./dist s3://your-bucket/artifacts'
-                        monthlyPipeline5.onSuccess(this)
+                        monthlyPipeline.onSuccess(this)
                     } catch (err) {
-                        monthlyPipeline5.onFailure(this)
+                        monthlyPipeline.onFailure(this)
                         throw err
                     }
                 }
